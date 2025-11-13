@@ -1,0 +1,136 @@
+Dream EEG and Mentation (DREAM) data set
+========================================
+
+
+Data set information
+--------------------
+
+- Common name: Dream Database from Donders
+- Full name: N/A
+- Authors: Cagatay Demirel, Jarrod Gott, Martin Dresler
+- Location: Donders Centre for Cognitive Neuroimaging
+- Year: 2019 - 2021
+- Set ID: 5
+- Amendment: 0
+- Corresponding author ID: 12
+
+Previous publications:  
+Konkoly, K. R., Appel, K., Chabani, E., Mangiaruga, A., Gott, J., Mallett, R., ... & Paller, K. A. (2021). Real-time dialogue between experimenters and dreamers during REM sleep. Current Biology, 31(7), 1417-1427.
+
+Correspondence:  
+
+cagatay.demirel@donders.ru.nl
+
+
+Metadata
+--------
+
+- Key ID: 6
+- Date entered: 2023-02-21T12:48:54+00:00
+- Number of samples: 7
+- Number of subjects: 6
+- Proportion REM: 14%
+- Proportion N1: 14%
+- Proportion N2: 43%
+- Proportion W: 0%
+- Proportion experience: 100%
+- Proportion no-experience: 0%
+- Proportion healthy: 100%
+- Provoked awakening: Yes
+- Time of awakening: Morning
+- Form of response: Structured
+- Date approved: 2023-02-21T12:47:51+00:00
+
+
+How to decode data files
+------------------------
+
+* EEG files: All the EEG data are already transformed into ".edf" format from original Brainvision files.
+* Dream reports: Microsoft Word files in .docx format are used to format the dream reports in our study. Initially, we captured dream reports as .wav files and then meticulously refined the transcribed text to extract clear and accurate dream reports.
+
+
+### Treatment group codes ###
+
+Codes correspond to the study numbers described below.
+
+
+Experimental description
+------------------------
+
+The database consists of data from three projects:
+
+* Real-time dialogue during lucid dreaming (study no: 0) : Subjects communicated with the researchers while lucid dreaming, and answered very basic calculations with eye signals (e.g "what is 8 minus 6? --> "answer is 2 by moving ocular muscles on both sides to count the amount of eye signalling).
+  - Data/PSG/s_04/c_04/morningnap_singlepart.edf
+  - Data/PSG/s_04/c_05/morningnap_singlepart.edf
+  
+* Motor-decoding during lucid dreaming (study no: 1): The goal is to induce hand-clenching during lucid dreams. In this experiment, participants are instructed to provide LRLR eye signals between each hand clenching event to differentiate between the occurrences.
+  - Data/PSG/s_00/c_00/morningnap_singlepart.edf
+  - Data/PSG/s_01/c_01/morningnap_singlepart.edf
+
+  - Data/PSG/s_02/c_02/morningnap_part1.edf
+  - Data/PSG/s_02/c_02/morningnap_part2.edf
+  
+* Other dream data: No experimental description, just some high-density EEG data with the dream content (study no: 2).
+  - Data/PSG/s_03/c_03/morningnap_singlepart.edf
+
+Note: Please note that the majority of "dream recall" moments, clear phasic REM stages, and lucid dreaming (in some individuals) occurred around midday during our study. It is important to mention that all participants arrived at the EEG lab with high REM pressure around 7:00 a.m., and the events were observed between 11:00-12:00. As a result, our dream segments are more likely to be perceived as "day awakenings".
+
+Note: The data was collected under blanket ethical approval, and informed consent for participation was obtained from subjects. 
+
+### DREAM categorization procedure ###
+
+N/A
+
+
+Technical details
+-----------------
+
+* s_00/c_00/morningnap_singlepart.edf: 
+  - EMG_wrist_left is problematic and should be discarded.
+* s_01/c_01/morningnap_singlepart.edf:
+  - F7 has a constant line noise and probably non-stationary sweat artefact
+  - C3 becomes artefactual in the last period of the data
+  - C1, P1, AF4 line artefacts
+  - FT8 line artefacts with some movement artefacts (probably)
+* s_02/c_02/morningnap_part1.edf:
+  - F3 & FC1 & FC2 & C1 & FC4 almost constantly artefactual, needs to be interpolated.
+  - CP4 has random disconnections and some bursts, need to be interpolated.
+* s_02/c_02/morningnap_part2.edf: 
+  - CP1, CP6, FC2, C1, C6 are constantly artefactual, needs to be interpolated.
+  - F2 & C2 are severly corrupted.
+  - F3 could have constant line-noise.
+* s_03/c_03/morningnap_singlepart.edf:
+  - O2 seems to be almost detached from the skin, needs to be interpolated.
+  - P7 is getting contaminated by unknown line-noise with combination of burst artefacts at 0:36:12 (the distance from the beginning).
+* s_04/c_04/morningnap_singlepart.edf:
+  - Drop ['IIz', 'SI5', 'SI6', 'SI3', 'SI4']
+  - EMG 3 is unusable
+* s_04/c_05/morningnap_singlepart.edf:
+  - Again drop ['IIz', 'SI5', 'SI6', 'SI3', 'SI4']
+  - CPP1H needs to be interpolated.
+
+
+### Data acquisition ###
+
+The equipment used in this study included:
+- Easycap 128-channel EEG device (using the 10/05 EEG layout) with passive electrodes, which included EMG, EOG, and ECG.
+- actiCAP 64-channel EEG device (using the 10/10 EEG layout).
+	* During study no. 1 and no. 2, certain EEG channels are converted into EOG and skin EMG signals through the use of adhesive holders. To avoid confusion, all modified channels are given updated names to reflect their current function.
+    * ExG box with additional passive and bipolar EOG and EMGs are utilized.
+
+### Data preprocessing ###
+
+The EEG data in the .edf format has not been preprocessed and remains in its raw form. However, since the data was originally collected from Brainvision files, the 3D electrode layout information (using the 10/10 system) is already embedded 
+in the .edf files. As a result, when loading the data into either FieldTrip or MNE platforms, the layout information will be automatically included, and there is no need to search for an external EEG layout to integrate the data structure into 
+MATLAB or Python platforms.
+
+### Recommended data preprocessing for the whole data ###
+
+Various preprocessing pipelines could be utilized for the intended analysis; however, this is the most general preprocessing pipeline identified for our specific dataset.
+
+1) Channel type assignment
+2) Notch filter at 50 Hz
+3) 0.1 - 49 Hz band-pass filter (in case above 50 Hz are not interested).
+4) Noisy-channel tagging & interpolation
+5) Optionally, EEG channel interpolation can be performed on channels that have been converted into EOG and EMG signals
+6) Signal-space projection (SSP): https://mne.tools/0.16/manual/preprocessing/ssp.html
